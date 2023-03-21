@@ -16,6 +16,7 @@ Edited 03/02/2017
 Edited 06/12/2018
 Edited 21/02/2023
 */
+// code runs of NUCLEO-F429ZI
 #include "mbed.h"
 #include "motor.h"
 #include "tunes.h"
