@@ -1,5 +1,10 @@
 #ifndef _PWM_TONE_H_
 #define _PWM_TONE_H_
+//rule britannia
+//megalovania
+//fake out -> rick roll
+//nokia ring tone
+//arabic nokia
 
 /* Includes ------------------------------------------------------------------*/
 #include "mbed.h"
