@@ -25,8 +25,8 @@ Edited 21/02/2023
 #define TIME_PERIOD 2             //Constant compiler Values here 2 equates to 2ms or 500Hz base Frequency
 #define DUTY 0.9                  //DUTY of 1.0=100%, 0.4=40% etc.,
 
-DigitalIn microswitch1(D4);       //Instance of the DigitalIn class called 'microswitch1'
-DigitalIn microswitch2(D3);       //Instance of the DigitalIn class called 'microswitch2'
+DigitalIn microswitch1(D4);       //switch on back of bot
+DigitalIn microswitch2(D3);       //unused pin
 
 Motor Wheel(D13,D11,D9,D10);      //Instance of the Motor Class called 'Wheel' see motor.h and motor.cpp
 
@@ -67,10 +67,11 @@ int main ()
 				if (microswitch1){tone1();printf("Switch1\n\r");}
 				if (microswitch2){tone2();printf("Switch2\n\r");}
     }
+    testroutine();
 
     while(true)                             //Repeat the following forever NB always true!
-    {		
-
+    {	
+      
 
             // YOUR LINES OF CODE for your stratagy go between HERE! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -88,6 +89,21 @@ int main ()
             // and HERE! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     } //end of while loop!
 }     //end of main()
+void testroutine()
+{
+  Wheel.Speed(1,1);
+  wait_us(100*1000);
+  Wheel.Stop();
+  Wheel.Speed(1,0);
+  wait_us(100*1000);
+  Wheel.Stop();
+  Wheel.Speed(1,1);
+  wait_us(100*1000);
+  Wheel.Stop();
+  Wheel.Speed(0,1);
+  wait_us(100*1000);
+  Wheel.Stop();
+}
 
 
 //NB following HELP notes here.....

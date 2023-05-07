@@ -3,3 +3,4 @@
 projectfiles
 BUILD
 *.py*
+mbed-os
