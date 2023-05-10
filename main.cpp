@@ -24,9 +24,10 @@ Edited 21/02/2023
 
 #define TIME_PERIOD 2             //Constant compiler Values here 2 equates to 2ms or 500Hz base Frequency
 #define DUTY 0.9                  //DUTY of 1.0=100%, 0.4=40% etc.,
+#define SECOND 1000000            //Second in micro    
 
 DigitalIn microswitch1(D4);       //switch on back of bot
-DigitalIn microswitch2(D3);       //unused pin
+
 
 Motor Wheel(D13,D11,D9,D10);      //Instance of the Motor Class called 'Wheel' see motor.h and motor.cpp
 
@@ -42,53 +43,6 @@ DigitalOut led_green(LED1);
 //Variable 'duty' for programmer to use to vary speed as required set here to #define compiler constant see above
 float duty=DUTY;
 //
-int main ()
-{
-  printf("ROCO104 Demonstration Robot Buggy Plymouth University 2022/23\n\r");
-
-  Wheel.Period_in_ms(TIME_PERIOD);//Set frequency of the PWMs
-
-  //
-  //--------------------------- your strategy goes between the two dashed lines ---------------------------------------------   
-  //
-    Wheel.Stop();
-
-    close_encounter(2);     //tune to play Announce start!
-    //twinkle(2);           //see tunes.h for alternatives or make your own!
-    //jingle_bells(2);
-
-    while(myButton==0)
-    {                       //Wait here for USER Button (Blue) on Nucleo Board (goes to zero when pressed)
-        led_red=0;              //and flash green LED whilst waiting
-        wait_us(100*1000);
-        led_red=1; 
-        wait_us(100*1000);
-        //Test Microswitches with two different tones see tunes.cpp tunes.h or flash (led1 and led2) onboard LEDs
-				if (microswitch1){tone1();printf("Switch1\n\r");}
-				if (microswitch2){tone2();printf("Switch2\n\r");}
-    }
-    testroutine();
-
-    while(true)                             //Repeat the following forever NB always true!
-    {	
-      
-
-            // YOUR LINES OF CODE for your stratagy go between HERE! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    // Remember to use plenty of comments by using:-
-            // Single line
-            /*
-            multiple
-            lines
-            */
-
-
-
-
-
-            // and HERE! +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    } //end of while loop!
-}     //end of main()
 void testroutine()
 {
   Wheel.Speed(1,1);
@@ -104,15 +58,45 @@ void testroutine()
   wait_us(100*1000);
   Wheel.Stop();
 }
+int main ()
+{
+  printf("ROCO104 Demonstration Robot Buggy Plymouth University 2022/23\n\r");
 
+  Wheel.Period_in_ms(TIME_PERIOD);//Set frequency of the PWMs
 
+  //
+  //--------------------------- your strategy goes between the two dashed lines ---------------------------------------------   
+  //
+  Wheel.Stop();
 
-//NB following HELP notes here.....
-/*
-//Consider these lines of code to Accelerate the motors
-      for (float i=0.5f; i<=1.0f; i+=0.01f) //Accelerate  from 50% to 100%
-      { 
-        Wheel.Speed(i,i);
-        wait(0.1f);
-      }
-*/
+  close_encounter(2);     //tune to play Announce start!
+  //twinkle(2);           //see tunes.h for alternatives or make your own!
+  //jingle_bells(2);
+
+  while(microswitch1==0)
+  {                       //Wait here for USER Button (Blue) on Nucleo Board (goes to zero when pressed)
+    led_red=0;              //and flash green LED whilst waiting
+    wait_us(100*1000);
+    led_red=1; 
+    wait_us(100*1000);
+    //Test Microswitches with two different tones see tunes.cpp tunes.h or flash (led1 and led2) onboard LEDs
+		if (microswitch1){tone1();printf("Switch1\n\r");}
+		
+    }
+    //testroutine();
+
+    while(true)                             //Repeat the following forever NB always true!
+    {
+      Wheel.Speed(1,1);
+      wait_us(2*SECOND);
+      Wheel.Speed(-1,-1);
+      wait_us(2*SECOND);
+      Wheel.Speed(1,1);
+      wait_us(0.2*SECOND);
+      Wheel.Speed(1,-1);
+      wait_us(0.5*SECOND);
+      Wheel.Speed(1,1);
+      wait_us(0.5*SECOND);
+      Wheel.Speed(-1,1);
+      wait_us(0.5*SECOND);      
+    }
