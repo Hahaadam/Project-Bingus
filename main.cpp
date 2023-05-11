@@ -87,16 +87,23 @@ int main ()
 
     while(true)                             //Repeat the following forever NB always true!
     {
+      Wheel.Stop();
       Wheel.Speed(1,1);
       wait_us(2*SECOND);
+      Wheel.Stop();
       Wheel.Speed(-1,-1);
-      wait_us(2*SECOND);
+      while(microswitch1==0);      
+      Wheel.Stop();
       Wheel.Speed(1,1);
       wait_us(0.2*SECOND);
+      Wheel.Stop();
       Wheel.Speed(1,-1);
       wait_us(0.5*SECOND);
+      Wheel.Stop();
       Wheel.Speed(1,1);
       wait_us(0.5*SECOND);
+      Wheel.Stop();
       Wheel.Speed(-1,1);
       wait_us(0.5*SECOND);      
     }
+}
