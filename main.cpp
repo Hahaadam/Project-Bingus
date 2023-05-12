@@ -1,4 +1,3 @@
-
 #include "mbed.h"
 #include "motor.h"
 #include "tunes.h"
@@ -7,10 +6,10 @@
 #define TIME_PERIOD 2             //Constant compiler Values here 2 equates to 2ms or 500Hz base Frequency
 #define DUTY 0.9                  //DUTY of 1.0=100%, 0.4=40% etc.,
 const float SECOND  = 1000000;    //Second in micro    
-const float FORWARD = 2;
-const float TURN = 1.5;
-const float STEPAWAY = 0.5;
-const float SHIFT = 1;
+const float FORWARD = 4.25;
+const float TURN = 1;
+const float STEPAWAY = 0.7;
+const float SHIFT = 1.5;
 
 DigitalIn microswitch1(D4);       //switch on back of bot
 Motor Wheel(D13,D11,D9,D10);      //Instance of the Motor Class called 'Wheel' see motor.h and motor.cpp
@@ -59,6 +58,10 @@ int main ()
       wait_us(SHIFT*SECOND);
       Wheel.Stop();
       Wheel.Speed(-1,1);
-      wait_us(TURN*SECOND);      
+      wait_us(TURN*SECOND);
+      Wheel.Speed(-1,-1);
+      while(microswitch1==0);
+      Wheel.Stop();
+
     }
 }
